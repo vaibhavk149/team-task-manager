@@ -4,11 +4,12 @@
   "description": "Full-stack Team Task Manager",
   "scripts": {
     "postinstall": "npm run install-server && npm run install-client",
-    "install-server": "cd server && npm install",
-    "install-client": "cd client && npm install",
-    "build-client": "cd client && npm run build && rm -rf ../server/dist && mv dist ../server/dist",
-    "start": "cd server && node index.js",
-    "railway-build": "npm run postinstall && npm run build-client"
+    "install-server": "npm --prefix server install",
+    "install-client": "npm --prefix client install",
+    "build": "npm --prefix client run build && node -e \"const fs=require('fs'); fs.rmSync('server/dist',{recursive:true,force:true}); fs.cpSync('client/dist','server/dist',{recursive:true});\"",
+    "build-client": "npm run build",
+    "start": "npm --prefix server start",
+    "railway-build": "npm run build"
   },
   "author": "vaibhavk149",
   "license": "ISC"
