@@ -22,7 +22,8 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
 
 // Serve React frontend in production
-const clientBuildPath = path.join(__dirname, '..', 'client', 'dist');
+const clientBuildPath = path.resolve(__dirname, '..', 'client', 'dist');
+console.log('Serving static files from:', clientBuildPath);
 app.use(express.static(clientBuildPath));
 
 // Any route that is not an API route → serve React's index.html
@@ -30,7 +31,12 @@ app.use((req, res, next) => {
   if (req.path.startsWith('/api')) {
     return next();
   }
-  res.sendFile(path.join(clientBuildPath, 'index.html'));
+  res.sendFile(path.join(clientBuildPath, 'index.html'), (err) => {
+    if (err) {
+      console.error('Error sending index.html:', err);
+      res.status(500).send('Frontend build not found. Make sure you ran the build script.');
+    }
+  });
 });
 
 const connectDB = require('./config/db');
