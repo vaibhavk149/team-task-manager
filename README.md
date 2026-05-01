@@ -2,7 +2,7 @@
 
 A full-stack web application for managing projects, assigning tasks, and tracking progress with role-based access control (Admin/Member).
 
-🔗 **Live Demo:** [Coming Soon]  
+🔗 **Live Demo:** [team-task-manager-production-ab2c.up.railway.app](https://team-task-manager-production-ab2c.up.railway.app)  
 📦 **GitHub:** [github.com/vaibhavk149/team-task-manager](https://github.com/vaibhavk149/team-task-manager)
 
 ---
