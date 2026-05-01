@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "Full-stack Team Task Manager",
   "scripts": {
+    "postinstall": "npm run install-server && npm run install-client",
     "install-server": "cd server && npm install",
     "install-client": "cd client && npm install",
     "build-client": "cd client && npm run build",
     "start": "cd server && node index.js",
-    "railway-build": "npm run install-server && npm run install-client && npm run build-client"
+    "railway-build": "npm run postinstall && npm run build-client"
   },
   "author": "vaibhavk149",
   "license": "ISC"
