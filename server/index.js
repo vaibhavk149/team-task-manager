@@ -22,7 +22,14 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
 
 // Serve React frontend in production
-const clientBuildPath = path.resolve(__dirname, '..', 'client', 'dist');
+// We now look in the 'dist' folder inside the server directory (moved there by build-client)
+let clientBuildPath = path.resolve(__dirname, 'dist');
+
+// Fallback for safety
+if (!require('fs').existsSync(clientBuildPath)) {
+  clientBuildPath = path.resolve(__dirname, '..', 'client', 'dist');
+}
+
 console.log('Serving static files from:', clientBuildPath);
 app.use(express.static(clientBuildPath));
 
@@ -34,7 +41,7 @@ app.use((req, res, next) => {
   res.sendFile(path.join(clientBuildPath, 'index.html'), (err) => {
     if (err) {
       console.error('Error sending index.html:', err);
-      res.status(500).send('Frontend build not found. Make sure you ran the build script.');
+      res.status(500).send(`Frontend build not found at ${clientBuildPath}. Make sure you ran the build script.`);
     }
   });
 });

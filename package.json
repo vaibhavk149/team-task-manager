@@ -6,7 +6,7 @@
     "postinstall": "npm run install-server && npm run install-client",
     "install-server": "cd server && npm install",
     "install-client": "cd client && npm install",
-    "build-client": "cd client && npm run build",
+    "build-client": "cd client && npm run build && rm -rf ../server/dist && mv dist ../server/dist",
     "start": "cd server && node index.js",
     "railway-build": "npm run postinstall && npm run build-client"
   },
